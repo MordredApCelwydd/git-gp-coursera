@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from models import Item
 app = FastAPI()
 app.add_event_handler("startup", startup_event)
-@app.post("/items/")
+@app.post("/items/", statuscode=201)
 def create_item(item:Item):
     conn = get_db()
     cursor = conn.cursor()
@@ -57,3 +57,4 @@ def delete_item(item_id: int):
     conn.execute("DELETE FROM items WHERE id = ?", (item_id,))
     conn.commit()
     return {"message": "Item deleted"}
+
